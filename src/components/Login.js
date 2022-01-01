@@ -143,7 +143,6 @@ const Form = styled.div`
     width: 410px;
     @media(max-width: 768px){
         margin: 20px 0 0;
-
     }
 `;
 
@@ -160,10 +159,13 @@ const Google = styled.button`
     z-index: 0;
     transition-duration: 167ms;
     font-size: 20px;
+    &>img{
+        padding: 0 10px;
+    }
     color: rgba(0,0,0,0.5);
     &:hover{
         background-color: rgba(207,207,207,0.25);
-        color: rgba(0,0,0,0.7);
+        color: rgba(0,0,0,0.75);
     }
 `;
 
