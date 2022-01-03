@@ -8,7 +8,7 @@ body{
 }
 
 :root, body, html{
-  background-color: #ffffff;
+  background-color: #F3F2EF;
   box-sizing: border-box;
 }
 
@@ -21,5 +21,9 @@ div, h1, h2, h3, h4, h5, h6, header, html, i, img, label, li, nav, p, small, spa
   vertical-align: baseline;
   background: transparent;
 }
+
+/* .home{
+  background-color: red;
+} */
 
 

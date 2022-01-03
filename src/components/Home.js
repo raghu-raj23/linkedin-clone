@@ -1,19 +1,39 @@
 import styled from "styled-components"
-import Header from "./Header";
+import LeftSection from "./LeftSection";
+import MainSection from "./MainSection";
+import RightSection from "./RightSection";
 
 function Home(props) {
     return (
-        <Outercontainer>
-            <Header />
-            Home
-        </Outercontainer>
+            <Container>
+                <Layout>
+                    <LeftSection />
+                    <MainSection />
+                    <RightSection />
+                </Layout>
+            </Container>
     )
 }
 
-const Outercontainer = styled.div`
-    min-height: 100vh;
-    min-width: 100vh;
-    background-color: #F3F2EF;
+const Container = styled.div`
+    max-width: 100%;
+    padding: 62px;
 `;
+
+const Layout = styled.div`
+    display: grid;
+    grid-template-areas: "LeftSpace LeftSection MainSection RightSection RightSpace";
+    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 7fr) minmax(300px, 4fr) minmax(0, 4fr);
+    column-gap: 25px;
+    row-gap: 25px;
+    grid-template-rows: auto;
+    /* margin: 25px; */
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        padding: 0 5px;
+    }
+`;
+
 
 export default Home;

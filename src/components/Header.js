@@ -18,13 +18,60 @@ function Header(props) {
                         <img src="./images/search-icon.svg" alt="search icon" />
                     </SearchIcon>
                 </Search>
+                {/* Nav items */}
                 <Nav>
                     <NavListWrap>
-                        <NavList>
-                            <a href='.'>
-                                <img src="./images/home-icon.svg" alt="home icon" />
+                        <NavList className='active'>
+                            <a>
+                                <img src="./images/nav-home.svg" alt="home icon" />
+                                <span>Home</span>
                             </a>
                         </NavList>
+                        <NavList>
+                            <a>
+                                <img src="./images/nav-network.svg" alt="home icon" />
+                                <span>My Network</span>
+                            </a>
+                        </NavList>
+                        <NavList>
+                            <a>
+                                <img src="./images/nav-jobs.svg" alt="home icon" />
+                                <span>Jobs</span>
+                            </a>
+                        </NavList>
+                        <NavList>
+                            <a>
+                                <img src="./images/nav-messaging.svg" alt="home icon" />
+                                <span>Messaging</span>
+                            </a>
+                        </NavList>
+                        <NavList>
+                            <a>
+                                <img src="./images/nav-notifications.svg" alt="home icon" />
+                                <span>Notifications</span>
+                            </a>
+                        </NavList>
+                        <User>
+                            <a>
+                                <img src="./images/user.svg" alt="home icon" />
+                                <span>Me
+                                <img src="./images/down-icon.svg" alt="home icon" />
+                                </span>
+                            </a>
+                            <SignOut>
+                                <a>
+                                    Sign Out
+                                </a>
+                            </SignOut>
+                        </User>
+                        <Work>
+                            <a>
+                                <img src="./images/nav-work.svg" alt="home icon" />
+                                <span>Work
+                                    <img src='/images/down-icon.svg' alt="home icon" />
+                                </span>
+                            </a>
+                        </Work>
                     </NavListWrap>
                 </Nav>
             </Content>
@@ -36,7 +83,8 @@ const Container = styled.div`
     background-color: #fff;
     border-bottom: 1px solid rgba(0,0,0,0.08);
     left: 0;
-    padding: 10px 24px;
+    /* padding: 0 24px; */
+    padding: 0 auto;
     position: fixed;
     top: 0;
     z-index: 100;
@@ -69,7 +117,7 @@ const Search = styled.div`
             background-color: #eef3f8;
             border-radius: 2px;
             color: rgba(0,0,0,0.9);
-            width: 218px;
+            width: 232px;
             padding: 0 8px 0 40px;
             font-size: 14px;
             font-weight: 400;
@@ -77,6 +125,10 @@ const Search = styled.div`
             height: 34px;
             border-color: #dce6f1;
             vertical-align: text-top;
+            transition-duration: 207ms;
+        }
+        &>input:hover{
+            width: 340px;
         }
     }
 `;
@@ -111,9 +163,99 @@ const Nav = styled.nav`
 
 const NavListWrap = styled.ul`
     display: flex;
-    /* 120 */
+    flex-wrap: nowrap;
+    list-style-type: none;
+    .active{
+        span:after{
+            content: "";
+            transform: scaleX(1);
+            border-bottom: 2px solid var(--white, #fff);
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            transition: transform 0.2s ease-in-out;
+            border-color: rgba(0,0,0,0.9);
+            width: 100%;
+        }
+    }
 `;
 
-const NavList = styled.li``;
+const NavList = styled.li`
+    display: flex;
+    align-items: center;
+    a{
+        align-items: center;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        font-weight: 400;
+        justify-content: center;
+        line-height: 1.75;
+        min-height: 52px;
+        min-width: 80px;
+        position: relative;
+        text-decoration: none;
+        span{
+            color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+        }
+        @media(max-width: 768px){
+            min-width: 70px;
+        }
+    }
+    &:hover, &:active {
+        a{
+            span{
+                color: rgba(0,0,0,0.9);
+            }
+            
+        }
+    }
+`;
+
+const SignOut = styled.div`
+    position: absolute;
+    top: 70px;
+    background: #fff;
+    border-radius: 0 0 5px 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    transition-duration: 167ms;
+    text-align: center;
+    display: none;
+`;
+
+const User = styled(NavList)`
+    a>img{
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+    }
+    span{
+        display: flex;
+        align-items: center;
+        &>img{
+            width: 16px;
+            height: 16px;
+        }
+    }
+    &:hover{
+        ${SignOut}{
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
+`;
+
+const Work = styled(User)`
+    border-left: 1px solid rgba(0,0,0,0.08);
+
+`;
+
+
 
 export default Header
