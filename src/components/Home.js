@@ -5,13 +5,13 @@ import RightSection from "./RightSection";
 
 function Home(props) {
     return (
-            <Container>
-                <Layout>
-                    <LeftSection />
-                    <MainSection />
-                    <RightSection />
-                </Layout>
-            </Container>
+        <Container>
+            <Layout>
+                <LeftSection />
+                <MainSection />
+                <RightSection />
+            </Layout>
+        </Container>
     )
 }
 
@@ -22,8 +22,11 @@ const Container = styled.div`
 
 const Layout = styled.div`
     display: grid;
-    grid-template-areas: "LeftSpace LeftSection MainSection RightSection RightSpace";
-    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 7fr) minmax(300px, 4fr) minmax(0, 4fr);
+    /* grid-template-areas: "LeftSpace LeftSection MainSection RightSection RightSpace"; */
+    max-width: 1128px;
+    margin: 0 auto;
+    grid-template-areas: "LeftSection MainSection RightSection";
+    grid-template-columns: minmax(0, 4fr) minmax(0, 12fr) minmax(300px, 4fr);
     column-gap: 25px;
     row-gap: 25px;
     grid-template-rows: auto;

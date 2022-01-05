@@ -182,25 +182,19 @@ const CommunityCard = styled(InfoCard)`
             align-items: center;
             justify-content: space-between;
         }
-        &:last-child{
-            color: rgba(0,0,0,0.6);
-            text-decoration:none;
-            border-top: 1px solid #d6cec2;
-            align-self: center;
-            &:hover{
-                background-color: #EBEBEB;
-            }
-        }
     }
     &>span{
         color: rgba(0,0,0,0.6);
         align-self: center;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 600;
         border-top: 1px solid #d6cec2;
         width: 100%;
         text-align: center;
         padding: 12px 0;
+        &:hover{
+            background-color: #EBEBEB;
+        }
     }
 `;
 
