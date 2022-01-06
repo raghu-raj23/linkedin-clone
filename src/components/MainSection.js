@@ -277,10 +277,15 @@ const SocialInteraction = styled.div`
             background: transparent;
             border: none;
             outline: none;
+            padding: 10px;
+            border-radius: 5px;
             @media (min-width: 768px){
                 span{
                     margin-left: 8px;
                 }
+            }
+            &:hover{
+                background-color: #EBEBEB;
             }
         }
 `;
