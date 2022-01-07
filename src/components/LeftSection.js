@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { connect } from 'react-redux';
 
 const LeftSection = props => {
     return (
@@ -8,7 +9,7 @@ const LeftSection = props => {
                     <CardBackground />
                     <a>
                         <Photo />
-                        <Link>Welcome, There</Link>
+                        <Link>Welcome, {props.user ? props.user.displayName : "there"}</Link>
                     </a>
                     <a>
                         <AddPhototText>
@@ -22,12 +23,12 @@ const LeftSection = props => {
                             <span>Connections</span>
                             <span>Grow your network</span>
                         </div>
-                        <img src = '/images/widget-icon.svg' alt = '' />
+                        <img src='/images/widget-icon.svg' alt='' />
                     </a>
                 </Widget>
                 <Item>
                     <span>
-                        <img src = '/images/item-icon.svg' alt = '' />
+                        <img src='/images/item-icon.svg' alt='' />
                         My Items
                     </span>
                 </Item>
@@ -38,7 +39,7 @@ const LeftSection = props => {
                 </a>
                 <a>
                     <span>Events
-                        <img src = '/images/plus-icon.svg' alt = '' />
+                        <img src='/images/plus-icon.svg' alt='' />
                     </span>
                 </a>
                 <a>
@@ -62,7 +63,7 @@ const InfoCard = styled.div`
     overflow: hidden;
     margin-bottom: 8px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: box-shadow 83ms;
     position: relative;
     border: none;
@@ -198,4 +199,10 @@ const CommunityCard = styled(InfoCard)`
     }
 `;
 
-export default LeftSection;
+const mapStateToProps = state => {
+    return {
+        user: state.userState.user
+    };
+}
+
+export default connect(mapStateToProps)(LeftSection);

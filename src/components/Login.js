@@ -7,12 +7,12 @@ const Login = (props) => {
     return (
         <Container>
             {
-                props.user && 
+                props.user &&
                 <Routes>
                     <Route path="/" element={<Navigate replace to="/home" />} />
                 </Routes>
             }
-            
+
             <Nav>
                 <a href=''>
                     <img src="./images/login-logo.svg" alt="LinkedIn logo" />
@@ -71,7 +71,7 @@ const Join = styled.a`
         background-color: rgba(0,0,0,0.07);
         color: rgba(0,0,0,0.9);
         text-decoration: none;
-        border-radius: 5px;
+        border-radius: 4px;
     }
 `;
 
@@ -180,7 +180,7 @@ const Google = styled.button`
 `;
 
 const mapStateToProps = state => {
-    return{
+    return {
         user: state.userState.user,
     };
 };
@@ -191,4 +191,4 @@ const mapDispatchToProps = dispatch => ({
     signIn: () => dispatch(signInAPI())
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

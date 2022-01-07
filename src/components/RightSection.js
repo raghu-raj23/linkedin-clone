@@ -18,7 +18,7 @@ const RightSection = props => {
                         </a>
                     </li>
                     <li>
-                    <span>&#9679;</span>
+                        <span>&#9679;</span>
 
                         <a>
                             What is this and that
@@ -26,7 +26,7 @@ const RightSection = props => {
                         </a>
                     </li>
                     <li>
-                    <span>&#9679;</span>
+                        <span>&#9679;</span>
 
                         <a>
                             What is this and that
@@ -34,7 +34,7 @@ const RightSection = props => {
                         </a>
                     </li>
                     <li>
-                    <span>&#9679;</span>
+                        <span>&#9679;</span>
 
                         <a>
                             What is this and that
@@ -69,7 +69,7 @@ const FollowCard = styled.div`
     position: relative;
     border: none;
     /* min-height: 100%; */
-    border-radius: 5px;
+    border-radius: 4px;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
     /* padding: 12px 12px 0; */
 `;
@@ -126,7 +126,7 @@ const FeedList = styled.ul`
             font-size: 14px;
             text-decoration:none;
             padding: 5px;
-            border-radius: 5px;
+            border-radius: 4px;
             &:hover{
                 background-color: #EBEBEB;
             }

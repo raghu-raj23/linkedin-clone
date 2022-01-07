@@ -1,31 +1,53 @@
 import styled from "styled-components";
+import PostModal from './PostModal';
+import { useState } from "react";
 
 const MainSection = props => {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleModal = (e) => {
+        e.preventDefault();
+        if(e.target !== e.currentTarget){
+            return;
+        }
+        switch(showModal){
+            case true:
+                setShowModal(false);
+                break;
+            case false:
+                setShowModal(true);
+                break;
+            default:
+                setShowModal(false);
+                break;
+        }
+    }
+
     return (
         <Container>
             <ShareBox>
                 <div>
                     <img src="/images/user.svg" alt="" />
-                    <button>Start a post</button>
+                    <button onClick={handleModal} >Start a post</button>
                 </div>
                 <div>
                     <button>
-                    <img src="/images/photo-icon.svg" alt="" />
-                    <span>Photo</span>
+                        <img src="/images/photo-icon.svg" alt="" />
+                        <span>Photo</span>
                     </button>
                     <button>
-                    <img src="/images/video-icon.svg" alt="" />
-                    <span>Video</span>
-                    </button>
-
-                    <button>
-                    <img src="/images/event-icon.svg" alt="" />
-                    <span>Event</span>
+                        <img src="/images/video-icon.svg" alt="" />
+                        <span>Video</span>
                     </button>
 
                     <button>
-                    <img src="/images/write-icon.svg" alt="" />
-                    <span>Write article</span>
+                        <img src="/images/event-icon.svg" alt="" />
+                        <span>Event</span>
+                    </button>
+
+                    <button>
+                        <img src="/images/write-icon.svg" alt="" />
+                        <span>Write article</span>
                     </button>
                 </div>
             </ShareBox>
@@ -65,24 +87,25 @@ const MainSection = props => {
                     </SocialCount>
                     <SocialInteraction>
                         <button>
-                        <img src="/images/like-action.svg" alt="" />
-                        <span>Like</span>
+                            <img src="/images/like-action.svg" alt="" />
+                            <span>Like</span>
                         </button>
                         <button>
-                        <img src="/images/comment-action.svg" alt="" />
-                        <span>Comment</span>
+                            <img src="/images/comment-action.svg" alt="" />
+                            <span>Comment</span>
                         </button>
                         <button>
-                        <img src="/images/share-action.svg" alt="" />
-                        <span>Share</span>
+                            <img src="/images/share-action.svg" alt="" />
+                            <span>Share</span>
                         </button>
                         <button>
-                        <img src="/images/send-action.svg" alt="" />
-                        <span>Send</span>
+                            <img src="/images/send-action.svg" alt="" />
+                            <span>Send</span>
                         </button>
                     </SocialInteraction>
                 </Article>
             </div>
+            <PostModal showModal = {showModal} handleModal = {handleModal}/>
         </Container>
     );
 };
@@ -97,7 +120,7 @@ const CommonCard = styled.div`
     overflow: hidden;
     margin-bottom: 8px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 4px;
     position: relative;
     border: none;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
@@ -278,7 +301,7 @@ const SocialInteraction = styled.div`
             border: none;
             outline: none;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 4px;
             @media (min-width: 768px){
                 span{
                     margin-left: 8px;
