@@ -1,10 +1,33 @@
 import styled from "styled-components";
-import { useState } from "react";
+import React, { useState } from "react";
+import ReactPlayer from "react-player";
 
 const PostModal = props => {
     const [editorText, setEditorText] = useState("");
-    const reset = e => {
+    const [sharedImg, setSharedImg] = useState("");
+    const [videoLink, setVideoLink] = useState("");
+    const [assetArea, setAssetArea] = useState("");
+    
+    const handleChange = (e) => {
+        const image = e.target.files[0];
+        if(image === "" || image === undefined) {
+            alert(`not an image, the file is a ${typeof image}`);
+            return;
+        }
+        setSharedImg(image);
+    };
+
+    const switchAssetArea = area =>{
+        setSharedImg("");
+        setVideoLink("");
+        setAssetArea(area);
+    }
+    
+    const reset = (e) => {
         setEditorText("");
+        setSharedImg("");
+        setVideoLink("");
+        setAssetArea("");
         props.handleModal(e);
     };
 
@@ -30,16 +53,38 @@ const PostModal = props => {
                             value={editorText} 
                             onChange = {(e) => setEditorText(e.target.value)}
                             placeholder="What do you want to talk about?"
-                            autoFocus = {true}>
-                            </textarea>
+                            autoFocus = {true}
+                            />
+                            {
+                                assetArea === "image" &&
+                                <UploadImage>
+                                    <input type="file" 
+                                    accept="image/gif, image/jpeg, image/png" name="image" 
+                                    id="file" 
+                                    style={{display: "none"}} 
+                                    onChange={handleChange}
+                                    />
+                                    {sharedImg && <img src = {URL.createObjectURL(sharedImg)} alt = "" />}
+                                    <>
+                                        <input type="text" placeholder="Please input a video link" value={videoLink} onChange ={e => setVideoLink(e.target.value)}/>
+                                        { videoLink && (
+                                            <ReactPlayer url={videoLink} width={"100%"} />
+                                            )
+                                        }
+                                    </>
+                                </UploadImage>
+                            }
                         </Editor>
                     </SharedContent>
                     <ShareCreation>
                         <AttachAssets>
                             <AssetButton>
+                                    <label htmlFor="file">
                                 <img src="/images/share-image.svg" alt="" />
+                                    </label>
                             </AssetButton>
                             <AssetButton>
+                                
                                 <img src="/images/share-video.svg" alt="" />
                             </AssetButton>
                             <AssetButton>
@@ -65,7 +110,7 @@ const PostModal = props => {
                         </AssetButton>
                         </ShareComment>
 
-                        <PostButton>Post</PostButton>
+                        <PostButton disabled = {!editorText ? true: false}>Post</PostButton>
 
                     </ShareCreation>
                 </Content>
@@ -206,10 +251,10 @@ const PostButton = styled.button`
     min-width: 60px;
     border-radius: 20px;
     padding: 0 16px;
-    background: #0A66C2;
-    color: #fff;
+    background: ${props => props.disabled ? "rgba(0,0,0,0.7)" : "#0A66C2"};
+    color: ${props => props.disabled ? "rgba(0,0,0,0.2)" : "#fff"};
     &:hover{
-        background: #004182;
+        background: ${props => props.disabled ? "rgba(0,0,0,0.07)" : "#004182"};
     }
 `;
 
@@ -228,6 +273,13 @@ const Editor = styled.div`
             font-size: 16px;
             margin-bottom: 20px;
         }
+    }
+`;
+
+const UploadImage = styled.div`
+    text-align: center;
+    img{
+        width: 100%;
     }
 `;
 
