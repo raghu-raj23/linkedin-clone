@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
+import { connect } from "react-redux";
 
 const PostModal = props => {
     const [editorText, setEditorText] = useState("");
@@ -45,8 +46,8 @@ const PostModal = props => {
                     </Header>
                     <SharedContent>
                         <UserInfo>
-                            <img src="/images/user.svg" alt="" />
-                            <span>Name</span>
+                            {props.user.photoURL ? (<img src={props.user.photoURL} alt="" />) : (<img src="/images/user.svg" alt="" /> )}
+                            <span>{props.user.displayName}</span>
                         </UserInfo>
                         <Editor>
                             <textarea
@@ -56,35 +57,36 @@ const PostModal = props => {
                             autoFocus = {true}
                             />
                             {
-                                assetArea === "image" &&
-                                <UploadImage>
-                                    <input type="file" 
-                                    accept="image/gif, image/jpeg, image/png" name="image" 
-                                    id="file" 
-                                    style={{display: "none"}} 
-                                    onChange={handleChange}
-                                    />
-                                    {sharedImg && <img src = {URL.createObjectURL(sharedImg)} alt = "" />}
+                                assetArea === "image" ? (
+                                    <UploadImage>
+                                        <input type="file" 
+                                        accept="image/gif, image/jpeg, image/png" name="image" 
+                                        id="file" 
+                                        style={{display: "none"}} 
+                                        onChange={handleChange}
+                                        />
+                                        <p>
+                                        <label htmlFor="file">Share a image</label>
+                                        </p>
+                                        {sharedImg && <img src = {URL.createObjectURL(sharedImg)} alt = "" />}
+                                    </UploadImage>
+                                ) : (
+                                assetArea === "media" &&(
                                     <>
                                         <input type="text" placeholder="Please input a video link" value={videoLink} onChange ={e => setVideoLink(e.target.value)}/>
                                         { videoLink && (
                                             <ReactPlayer url={videoLink} width={"100%"} />
-                                            )
-                                        }
+                                            )}
                                     </>
-                                </UploadImage>
-                            }
+                                ))}
                         </Editor>
                     </SharedContent>
                     <ShareCreation>
                         <AttachAssets>
-                            <AssetButton>
-                                    <label htmlFor="file">
+                            <AssetButton onClick={() => switchAssetArea("image")}>
                                 <img src="/images/share-image.svg" alt="" />
-                                    </label>
                             </AssetButton>
-                            <AssetButton>
-                                
+                            <AssetButton onClick={() => switchAssetArea("media")}>                                
                                 <img src="/images/share-video.svg" alt="" />
                             </AssetButton>
                             <AssetButton>
@@ -283,4 +285,12 @@ const UploadImage = styled.div`
     }
 `;
 
-export default PostModal;
+const mapStateToProps = state => {
+    return {
+        user: state.userState.user,
+    };
+};
+
+const mapDispatchToProps = dispatch => {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostModal);
