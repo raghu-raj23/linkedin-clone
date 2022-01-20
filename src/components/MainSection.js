@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import PostModal from './PostModal';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { connect } from 'react-redux';
+import { getArticlesAPI } from "../actions";
 
 const MainSection = props => {
     const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        props.getArticle();
+    }, []);
 
     const handleModal = (e) => {
         e.preventDefault();
@@ -24,89 +30,105 @@ const MainSection = props => {
     }
 
     return (
-        <Container>
-            <ShareBox>
-                <div>
-                    <img src="/images/user.svg" alt="" />
-                    <button onClick={handleModal} >Start a post</button>
-                </div>
-                <div>
-                    <button>
-                        <img src="/images/photo-icon.svg" alt="" />
-                        <span>Photo</span>
-                    </button>
-                    <button>
-                        <img src="/images/video-icon.svg" alt="" />
-                        <span>Video</span>
-                    </button>
-
-                    <button>
-                        <img src="/images/event-icon.svg" alt="" />
-                        <span>Event</span>
-                    </button>
-
-                    <button>
-                        <img src="/images/write-icon.svg" alt="" />
-                        <span>Write article</span>
-                    </button>
-                </div>
-            </ShareBox>
-            <div>
-                <Article>
-                    <SharedActor>
-                        <a>
-                            <img src="/images/user.svg" alt="" />
-                            <div>
-                                <span>title</span>
-                                <span>info</span>
-                                <span>date</span>
-                            </div>
-                        </a>
+        <>
+        {
+            props.articles.length === 0 ? 
+            <p>No articles yet</p> : 
+            <Container>
+                <ShareBox>
+                    <div>
+                    {
+                        props.user && props.user.photoURL ? 
+                        <img src = {props.user.photoURL} alt = "profile" /> :
+                        <img src="/images/user.svg" alt="" />
+                    }
+                        <button onClick={handleModal} disabled = {props.loading ? true : false} >Start a post</button>
+                    </div>
+                    <div>
                         <button>
-                            <img src="/images/ellipsis.svg" alt="" />
+                            <img src="/images/photo-icon.svg" alt="" />
+                            <span>Photo</span>
                         </button>
-                    </SharedActor>
-                    <Description>Description</Description>
-                    <SharedImg>
-                        <a>
-                            <img src="/images/backImg.jpg" alt="" />
-                        </a>
-                    </SharedImg>
-                    <SocialCount>
-                        <li>
+                        <button>
+                            <img src="/images/video-icon.svg" alt="" />
+                            <span>Video</span>
+                        </button>
+
+                        <button>
+                            <img src="/images/event-icon.svg" alt="" />
+                            <span>Event</span>
+                        </button>
+
+                        <button>
+                            <img src="/images/write-icon.svg" alt="" />
+                            <span>Write article</span>
+                        </button>
+                    </div>
+                </ShareBox>
+                <Content>
+                    {
+                        props.loading && <img src = './images/spinner.svg' alt = "loading" />
+                    }
+                    {
+                        
+                    }
+                    <Article>
+                        <SharedActor>
+                            <a>
+                                <img src="/images/user.svg" alt="" />
+                                <div>
+                                    <span>title</span>
+                                    <span>info</span>
+                                    <span>date</span>
+                                </div>
+                            </a>
                             <button>
-                                <img src="/images/like.svg" alt="" />
-                                <img src="/images/insight.svg" alt="" />
-                                <img src="/images/clap.svg" alt="" />
-                                <span> 75 </span>
+                                <img src="/images/ellipsis.svg" alt="" />
                             </button>
-                        </li>
-                        <li>
-                            2 comments
-                        </li>
-                    </SocialCount>
-                    <SocialInteraction>
-                        <button>
-                            <img src="/images/like-action.svg" alt="" />
-                            <span>Like</span>
-                        </button>
-                        <button>
-                            <img src="/images/comment-action.svg" alt="" />
-                            <span>Comment</span>
-                        </button>
-                        <button>
-                            <img src="/images/share-action.svg" alt="" />
-                            <span>Share</span>
-                        </button>
-                        <button>
-                            <img src="/images/send-action.svg" alt="" />
-                            <span>Send</span>
-                        </button>
-                    </SocialInteraction>
-                </Article>
-            </div>
-            <PostModal showModal = {showModal} handleModal = {handleModal}/>
-        </Container>
+                        </SharedActor>
+                        <Description>Description</Description>
+                        <SharedImg>
+                            <a>
+                                <img src="/images/backImg.jpg" alt="" />
+                            </a>
+                        </SharedImg>
+                        <SocialCount>
+                            <li>
+                                <button>
+                                    <img src="/images/like.svg" alt="" />
+                                    <img src="/images/insight.svg" alt="" />
+                                    <img src="/images/clap.svg" alt="" />
+                                    <span> 75 </span>
+                                </button>
+                            </li>
+                            <li>
+                                2 comments
+                            </li>
+                        </SocialCount>
+                        <SocialInteraction>
+                            <button>
+                                <img src="/images/like-action.svg" alt="" />
+                                <span>Like</span>
+                            </button>
+                            <button>
+                                <img src="/images/comment-action.svg" alt="" />
+                                <span>Comment</span>
+                            </button>
+                            <button>
+                                <img src="/images/share-action.svg" alt="" />
+                                <span>Share</span>
+                            </button>
+                            <button>
+                                <img src="/images/send-action.svg" alt="" />
+                                <span>Send</span>
+                            </button>
+                        </SocialInteraction>
+                    </Article>
+                </Content>
+                <PostModal showModal = {showModal} handleModal = {handleModal}/>
+            </Container>
+        }
+        </>
     );
 };
 
@@ -313,4 +335,24 @@ const SocialInteraction = styled.div`
         }
 `;
 
-export default MainSection;
+const Content = styled.div`
+    text-align: center;
+    & > img{
+        width: 30px;
+
+    }
+`;
+
+const mapStateToProps = (state) => {
+    return{
+        loading: state.articleState.loading,
+        user: state.userState.user,
+        articles : state.articleState.articles,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    getArticle: () => dispatch(getArticlesAPI()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainSection);
