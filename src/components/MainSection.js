@@ -361,3 +361,16 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(MainSection);
 
 
+/*
+
+npm run build
+firebase login
+firebase init
+-> select hosting
+-> use existing project
+-> select firebase project to set up hosting
+-> public directory: build
+-> config as spa
+firebase deploy
+
+*/
